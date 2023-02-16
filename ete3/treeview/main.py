@@ -682,7 +682,7 @@ def save(scene, imgName, w=None, h=None, dpi=90,\
     if ext == "SVG":
         svg = QSvgGenerator()
         targetRect = QRectF(0, 0, w, h)
-        svg.setSize(QSize(w, h))
+        svg.setSize(QSize(int(round(w)), int(round(h))))
         svg.setViewBox(targetRect)
         svg.setTitle("Generated with ETE http://etetoolkit.org")
         svg.setDescription("Generated with ETE http://etetoolkit.org")
@@ -749,10 +749,10 @@ def save(scene, imgName, w=None, h=None, dpi=90,\
         scene.render(pp, targetRect, scene.sceneRect(), ratio_mode)
     else:
         targetRect = QRectF(0, 0, w, h)
-        ii= QImage(w, h, QImage.Format_ARGB32)
+        ii= QImage(int(round(w)), int(round(h)), QImage.Format_ARGB32)
         ii.fill(QColor(Qt.white).rgb())
-        ii.setDotsPerMeterX(dpi / 0.0254) # Convert inches to meters
-        ii.setDotsPerMeterY(dpi / 0.0254)
+        ii.setDotsPerMeterX(int(round(dpi / 0.0254))) # Convert inches to meters
+        ii.setDotsPerMeterY(int(round(dpi / 0.0254)))
         pp = QPainter(ii)
         pp.setRenderHint(QPainter.Antialiasing)
         pp.setRenderHint(QPainter.TextAntialiasing)
